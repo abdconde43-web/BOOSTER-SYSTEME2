@@ -12,12 +12,18 @@ def run_viewer():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--mute-audio")
     
-    # --- LES PROXIES (Rotation d'IP) ---
-    # On utilise une liste de proxies pour changer d'identité
-    proxies = [
-        "103.152.112.162:80",
-        "185.201.88.128:8080",
-        "45.152.188.243:3128"
+ # --- LES PROXIES (Rotation Automatique Mondiale) ---
+    def get_fresh_proxies():
+        url = "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all"
+        try:
+            return requests.get(url).text.splitlines()
+        except:
+            return ["103.152.112.162:80", "185.201.88.128:8080"]
+
+    proxies = get_fresh_proxies()
+    proxy = random.choice(proxies)
+    chrome_options.add_argument(f'--proxy-server={proxy}')
+    print(f"Robot lancé avec l'IP : {proxy}")
         # Ajoute ici tes proxies résidentiels si tu en achètes
     ]
     proxy = random.choice(proxies)
@@ -34,8 +40,12 @@ def run_viewer():
 
     # --- TA LISTE DE VIDÉOS ---
     mes_videos = [
-        "https://www.youtube.com/watch?v=3_VsLM83eY",
-        "https://www.youtube.com/watch?v=LIEN_2"
+        "https://www.youtube.com/watch?v=KQf6UWeO1uQ",
+        "https://www.youtube.com/watch?v=KQf6UWeO1uQ"
+        "https://www.youtube.com/watch?v=KQf6UWeO1uQ"
+        "https://www.youtube.com/watch?v=KQf6UWeO1uQ"
+        "https://www.youtube.com/watch?v=KQf6UWeO1uQ"
+        "https://www.youtube.com/watch?v=KQf6UWeO1uQ"
     ]
 
     try:
@@ -43,8 +53,8 @@ def run_viewer():
         driver.get(video)
         
         # --- RÈGLE DES 40% (Watch Time) ---
-        # On reste entre 2 et 5 minutes pour simuler un vrai intérêt
-        wait = random.randint(120, 300) 
+        # On reste entre 1 et 3 minutes pour simuler un vrai intérêt
+        wait = random.randint(60, 180) 
         print(f"Vue via {proxy} sur {video} pendant {wait}s...")
         time.sleep(wait)
         
