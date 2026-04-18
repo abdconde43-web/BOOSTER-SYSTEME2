@@ -2,12 +2,13 @@ name: YouTube Booster Run
 
 on:
   schedule:
-    - cron: '*/10 * * * *' # Se lance toutes les 10 minutes
-  workflow_dispatch: # Bouton pour lancer manuellement
+    - cron: '*/5 * * * *' # Se lance automatiquement toutes les 5 minutes
+  workflow_dispatch:      # Permet de garder le bouton gris "Run workflow"
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Recupere le code
         uses: actions/checkout@v2
@@ -19,23 +20,30 @@ jobs:
 
       - name: Installe les outils Selenium
         run: |
-          pip install selenium webdriver-manager
-
+          pip install selenium webdriver-manager requests
 
       - name: Execution du Bot en Rafale
         run: |
-          # Lance 5 sessions en même temps (Parallel)
-          python bot_v1.py & 
-          python bot_v1.py & 
-          python bot_v1.py & 
-          python bot_v1.py & 
-          python bot_v1.py & 
-          wait
-          sleep 5
-          # Recommence une deuxième fois
-          python bot_v1.py & 
-          python bot_v1.py & 
-          python bot_v1.py & 
-          python bot_v1.py & 
-          python bot_v1.py & 
-          wait 
+          # Première rafale de 8 sessions (Parallèle)
+          python bot_v1.py &
+          python bot_v1.py &
+          python bot_v1.py &
+          python bot_v1.py &
+          python bot_v1.py &
+          python bot_v1.py &
+          python bot_v1.py &
+          python bot_v1.py &
+          wait # Attend que la 1ère vague termine
+          
+          sleep 8
+          
+          # Deuxième rafale de 8 sessions (Parallèle)
+          python bot_v1.py &
+          python bot_v1.py &
+          python bot_v1.py &
+          python bot_v1.py &
+          python bot_v1.py &
+          python bot_v1.py &
+          python bot_v1.py &
+          python bot_v1.py &
+          wait # Attend que la 2ème vague termine
