@@ -25,7 +25,6 @@ def run_viewer():
     chrome_options.add_argument(f'--proxy-server={proxy}')
     print(f"Robot lancé avec l'IP : {proxy}")
         # Ajoute ici tes proxies résidentiels si tu en achètes
-    ]
     proxy = random.choice(proxies)
     chrome_options.add_argument(f'--proxy-server={proxy}')
 
