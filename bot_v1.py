@@ -41,10 +41,6 @@ def run_viewer():
     mes_videos = [
         "https://www.youtube.com/watch?v=KQf6UWeO1uQ",
         "https://www.youtube.com/watch?v=KQf6UWeO1uQ"
-        "https://www.youtube.com/watch?v=KQf6UWeO1uQ"
-        "https://www.youtube.com/watch?v=KQf6UWeO1uQ"
-        "https://www.youtube.com/watch?v=KQf6UWeO1uQ"
-        "https://www.youtube.com/watch?v=KQf6UWeO1uQ"
     ]
 
     try:
